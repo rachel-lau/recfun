@@ -28,7 +28,26 @@ object Main {
    * Exercise 2
    */
   def balance(chars: List[Char]): Boolean = {
-    true
+
+    def innerBalance(numOpenBrackets: Int, chars: List[Char]) : Boolean = {
+      if (chars.isEmpty)
+        true
+      else {
+        val firstElement = chars.head
+        val remaining = chars.tail
+        if (firstElement == '(')
+          innerBalance(numOpenBrackets+1, remaining)
+        else if (firstElement == ')')
+          if ((numOpenBrackets - 1) < 0) 
+            false
+          else
+            innerBalance(numOpenBrackets-1, remaining)
+        else
+          innerBalance(numOpenBrackets, remaining)
+      }
+    }
+
+    innerBalance(0, chars) 
   }
 
   /**
